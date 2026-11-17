@@ -1,60 +1,86 @@
 # Do Comics Mirror America?
 
-**Women at work in Marvel and DC characters vs. the real U.S. workforce, 1940 to 2025**
+Women at work in Marvel and DC characters compared with the real U.S. workforce, 1940 to 2025.
 
-Final team project (Team A07) for an Intro to Data Analysis class. The whole project lives in one Jupyter notebook: [`Final-A07-Do-Comics-Mirror-America.ipynb`](Final-A07-Do-Comics-Mirror-America.ipynb).
-
-**Team:** Daniel Igbokwe, Carly Barry, Eliza Bashirian, Albert Dorofeev, Emanuele Borroni (Project Manager: Albert Dorofeev)
+**Course:** BA 780, Introduction to Data Analytics, Boston University Questrom (MSBA)
+**Team A07:** Daniel Igbokwe, Carly Barry, Eliza Bashirian, Albert Dorofeev (project manager), Emanuele Borroni
+**Tools:** Python, pandas, NumPy, Matplotlib, seaborn, Google Colab
 
 ## The question
 
-Since the 1940s, American women have moved into paid work and into jobs once open only to men. Did Marvel and DC comics reflect that change, lead it, or lag behind it? We compare the jobs comic book characters hold with the jobs real American women held at the same time, written for an editorial team deciding how to create and cast new characters.
-
-## Data
-
-| Dataset | Source | Size (raw) |
-|---|---|---|
-| Marvel characters | [Marvel Database](https://marvel.fandom.com/wiki/Category:Earth-616/Characters) (Fandom wiki), scraped | 37,204 rows |
-| DC characters | [DC Database](https://dc.fandom.com/wiki/DC_Comics_Database) (Fandom wiki), scraped | 14,671 rows |
-| U.S. jobs by sex, 1940 to 2023 | [IPUMS USA](https://usa.ipums.org/usa/) (Census and ACS) | 5,772 rows |
-| Women's labor force participation, 1948 to 2026 | [BLS via FRED](https://fred.stlouisfed.org/series/LNS11300002) | 944 rows |
-
-The raw CSV files are **not** included in this repo (IPUMS data may not be redistributed). The notebook was built to run in Google Colab with the data in a Google Drive folder.
-
-## What the notebook does
-
-1. **Data cleaning.** Grouped 83 messy gender values into Male / Female / Other / Unknown, stripped wiki markup, and sorted about 15,000 free-text occupations into census job groups (plus comic-only groups like Criminal, Hero and Royalty/Mystic). Removed 1,953 duplicate DC characters caused by reboots, leaving **49,922 characters**.
-2. **Joins.** Linked characters to real U.S. jobs by job group and decade, and linked the yearly female share of new characters to women's labor force participation by year.
-3. **Analysis.** 16 questions in four sections, each with a hypothesis, a chart, an answer, an interpretation and a caveat:
-   - **A. Baseline:** gender split, debut years, and how the female share of new characters changed by decade (Q1 to Q4)
-   - **B. Lag:** does comics track the workforce, and how many years behind? (Q5 to Q8)
-   - **C. Jobs:** what jobs female characters get compared with real women (Q9 to Q14)
-   - **D. Working lives:** are female characters given an occupation at all? (Q15, Q16)
+Marvel and DC say their characters should reflect their audience, but nobody on the editorial side has a number for how far the characters sit from the society they depict. We built that number. The project compares the jobs of nearly 50,000 comic characters with what real American women were doing at the same time, and asks where comics keep up and where they fall behind.
 
 ## Key findings
 
-- **Comics lag about 7 years behind.** The female share of new characters moves with women's labor force participation (r = 0.83) and lines up best with the workforce of about 7 years earlier (r = 0.89). This is a correlation, not proof that comics react to society.
-- **The roster is still about 70% male, but new characters changed fast.** Women went from 11.5% of new characters in 1960 to 40.0% in 2025.
-- **Female characters get "women's jobs".** Their job groups are on average 50.1% female in the real workforce, vs 42.9% for male characters. In historically male jobs, female characters reached 20% only in the 2010s; real women did in the 1980s.
-- **Women are written with fewer working lives.** 57.1% of female characters have an occupation listed, vs 66.7% of male characters.
+| Finding | What the number means |
+|---|---|
+| Comics trail the workforce by about **7 years** | The female share of new characters tracks women's labor force participation (r = 0.83). The match is strongest against the workforce 7 years earlier (r = 0.89). This shows a lag, not that comics react to society. |
+| New characters changed fast, the roster did not | The roster is still about **70% male**, but women made up **11.5%** of new characters in 1960 and **40.0%** in 2025. |
+| Female characters get "women's jobs" | The jobs held by female characters are on average **50.1% female** in the real workforce, against **42.9%** for male characters. |
+| Male-dominated jobs opened late | In jobs that were under 30% women in 1940, real women passed 20% in the **1980s**. Female characters passed it in the **2010s**. |
+| Fewer working lives for women | **57.1%** of female characters have an occupation listed, against **66.7%** of male characters. |
 
-## Tools
+![Women's labor force participation vs female share of new characters](images/workforce-vs-new-characters.png)
 
-Python, pandas, NumPy, Matplotlib and seaborn, run in Google Colab.
+![Correlation at each lag, peaking at 7 years](images/best-lag.png)
 
-## How to run it
+![Women in male-dominated job groups, comics vs real workforce](images/male-dominated-jobs.png)
 
-1. Open the notebook in [Google Colab](https://colab.research.google.com/).
-2. Put the four raw CSV files in a Google Drive folder (the notebook looks for the `000-Project/Datasets` folder).
-3. Run all cells. Colab will ask for permission to mount your Google Drive.
+## Recommendations for an editorial team
 
-If you just want to read the results, open the notebook on GitHub: all charts and outputs are already saved in it.
+1. Benchmark the gender mix of new characters against current workforce data every year, instead of matching where society was years ago.
+2. Cast new female characters in managerial, professional and other historically male roles, where comics trail reality by decades.
+3. Give every new character a civilian occupation so characters read as people with working lives.
+
+## Data
+
+| Source | What it gave us |
+|---|---|
+| [Marvel Database](https://marvel.fandom.com/wiki/Category:Earth-616/Characters) (Fandom) | 37,204 character pages, scraped 29 Sep 2026 |
+| [DC Database](https://dc.fandom.com/wiki/DC_Comics_Database) (Fandom) | 14,671 character pages, scraped 29 Sep 2026 |
+| [IPUMS USA](https://usa.ipums.org/usa/) | Share of women in each occupation, Census 1940 to 2000 and ACS 2001 to 2023 |
+| [BLS via FRED](https://fred.stlouisfed.org/series/LNS11300002) | Women's labor force participation rate, 1948 to 2026 |
+
+Fandom content is CC BY-SA 3.0 and FRED data is public domain. IPUMS data cannot be redistributed, so the raw files are not in this repo. You can download the extract from IPUMS using the occupation (OCC1950) by sex tabulation described in the notebook.
+
+## How we built it
+
+1. **Cleaned two messy wiki tables.** Gender had 83 raw values (typos, editor notes, identities that changed over time) that we grouped into Male, Female, Other and Unknown. Occupation was free text with wiki markup, so we kept each character's first current job.
+2. **Sorted about 15,000 free-text jobs** into 11 census job groups plus comic-only groups such as Criminal, Hero/Adventurer and Royalty/Mystic, using an ordered keyword list that we checked by hand.
+3. **Removed 1,953 DC reboot duplicates.** DC gives one character several pages across reboots. Left alone, this created a false wave of new characters in the 2010s.
+4. **Joined comics to real data** on job group and decade, and on year for the labor force series.
+5. **Answered 16 questions in four parts.** Each has a hypothesis, an answer, an interpretation and a caveat. The parts cover the baseline roster, the lag with the workforce, what jobs women get, and whether women are written with working lives at all.
+
+## My contribution
+
+I built the cleaning logic for the gender and occupation columns and worked with the team to decide how the original occupation values should group into job buckets. I also rewrote my own code into clearer, better commented functions.
 
 ## Limitations
 
-- Wiki data is written by volunteers, so some genders and occupations are missing or incomplete.
-- Only about a fifth of characters hold a job that matches a census job group, and the groups are broad.
-- The 2020s are an unfinished decade, and the earliest decades rest on few characters.
-- Correlation over time does not show that the workforce caused the change in comics.
+- Female results rest on smaller groups (12,334 female vs 35,086 male characters).
+- Only 10,832 characters hold a census-type job, so job comparisons cover about a fifth of the roster.
+- Job groups are broad, and the "male-dominated" label is fixed at 1940.
+- Wiki data is written by volunteers, so a missing gender or job may just be an incomplete page.
+- Both series rise over time, so a high correlation does not prove the workforce caused the change in comics.
+- The 2020s are an unfinished decade.
 
-The notebook also includes a full data dictionary, the challenges we ran into, recommendations, references, and a Generative AI disclosure.
+## Run it yourself
+
+1. Open `Final-A07-Do-Comics-Mirror-America.ipynb` in Google Colab.
+2. Put the four CSV files in a Drive folder called `000-Project/Datasets`, or in a local `data/` folder.
+3. Run all cells. The notebook finds the folder on its own.
+
+## Next steps
+
+- Compare the powers given to male and female characters and how that changed over time.
+- Weight characters by number of appearances so minor characters count less than leads.
+- Add race and ethnicity using census data on the same jobs.
+
+## Repo contents
+
+```
+.
+├── README.md
+├── Final-A07-Do-Comics-Mirror-America.ipynb
+└── images/
+```
